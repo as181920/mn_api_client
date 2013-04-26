@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'minitest/autorun'
 require 'mn_client'
 require "pry"
@@ -8,9 +7,8 @@ describe MnClient do
     @client = MnClient::Client.new
   end
 
-
   describe "CRUD for Note" do
-    it "have no notes by default" do
+    it "get notes with correct format" do
       notes = @client.all_notes
       notes.must_be_instance_of Array
       notes.last.keys.must_include :note
