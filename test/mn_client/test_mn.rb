@@ -1,17 +1,24 @@
 # encoding: utf-8
 require 'minitest/autorun'
 require 'mn_client'
+require "pry"
 
 describe MnClient do
   before  do
     @client = MnClient::Client.new
   end
 
-  describe "find by city" do
-    it "first test" do
-      businesses = @client.find_businesses({city: '上海'})
-      businesses.to_s.wont_be_empty
-    end
 
+  describe "CRUD for Note" do
+    it "have no notes by default" do
+      notes = @client.all_notes
+      notes.must_be_instance_of Array
+      notes.last.keys.must_include :note
+      notes.last[:note].keys.must_include :id
+      notes.last[:note].keys.must_include :name
+      notes.last[:note].keys.must_include :description
+      notes.last[:note].keys.must_include :created_at
+      notes.last[:note].keys.must_include :updated_at
+    end
   end
 end

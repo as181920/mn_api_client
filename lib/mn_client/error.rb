@@ -1,29 +1,26 @@
 module MnClient
   # Custom error class for rescuing from all MnClient errors
   class Error < StandardError
+  end
 
-    # @return [Hash]
-    def self.errors
-      @errors ||= Hash[descendants.map{|klass| [klass.const_get(:HTTP_STATUS_CODE)]}]
-    end
+  # Raised when API returns the HTTP status code 4xx
+  class BadRequest < Error
+  end
 
-    # @return [Array]
-    def self.descendants
-      ObjectSpace.each_object(::Class).select{|klass| klass < self}
-    end
+  # Raised when API returns the HTTP status code 401
+  class NotAuthorized < Error
+  end
 
-    # Initializes a new Error object
-    #
-    # @param exception [Exception, String]
-    # @param response_headers [Hash]
-    # @return [MnClient::Error]
-    def initialize(exception=$!, response_headers={})
-      exception.respond_to?(:backtrace) ? super(exception.message) : super(exception.to_s)
-    end
+  # Raised when API returns the HTTP status code 404
+  class NotFound < Error
+  end
 
-    def backtrace
-      @wrapped_exception.respond_to?(:backtrace) ? @wrapped_exception.backtrace : super
-    end
+  # Raised when API returns the HTTP status code 5xx
+  class InternalServerError < Error
+  end
+
+  # Raised when API returns the HTTP status code 503
+  class ServiceUnavailable < Error
   end
 end
 

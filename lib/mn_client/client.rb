@@ -1,8 +1,14 @@
-require "mn_client/api/business"
+require "faraday"
+require 'em-http'
+#require "mn_client/connection"
+#require "mn_client/request"
+require "mn_client/response/parse_json"
+require "mn_client/response/raise_error"
+require "mn_client/api/note"
 
 module MnClient
   class Client
-    include MnClient::API::Business
+    include MnClient::API::Note
 
     # Initializes a new Client object
     #
@@ -32,28 +38,21 @@ module MnClient
       request(:put, path, params)
     end
 
-  private
+    private
 
-    def request(method, path, params={}, signature_params=params)
-      Httparty.send method, 
-      connection.send(method.to_sym, path, params) do |request|
-        request.headers[:authorization] = auth_header(method.to_sym, path, signature_params).to_s
-      end.env
-    #rescue Faraday::Error::ClientError
-    #  raise Twitter::Error::ClientError
-    #rescue MultiJson::DecodeError
-    #  raise Twitter::Error::DecodeError
-    #rescue
-    #  raise MnClient::Error::RequestError
+    def request(method, path, params={})
+      connection.send(method.to_sym, path, params).body
+    end
+
+    def connection
+      @connection ||= Faraday.new(url: "http://localhost:9000") do |faraday|
+        faraday.request :url_encoded
+        faraday.response :logger
+        faraday.use Faraday::Adapter::EMSynchrony # make http request with eventmachine and synchrony
+        faraday.use MnClient::Response::ParseJson # Parse JSON response bodies using MultiJson
+      end
     end
 
   end
 end
 
-
-=begin
-puts sign
-
-response = HTTParty.get "http://api.dianping.com/v1/business/find_businesses?city=%E4%B8%8A%E6%B5%B7&appkey=#{key}&sign=#{sign}"
-p response
-=end
