@@ -1,7 +1,7 @@
 require "her"
 require 'em-http'
 
-Her::API.setup url: "http://localhost:9000" do |connection|
+Her::API.setup url:  MnClient::Configuration.api_url do |connection|
   connection.use Faraday::Request::UrlEncoded
   connection.response :logger
   connection.use Her::Middleware::DefaultParseJSON
@@ -12,3 +12,4 @@ end
 LIB_PATH = File.dirname(File.absolute_path(__FILE__))
 
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each {|file| require file}
+

@@ -7,12 +7,12 @@ module MnClient
   module Connection
 
     def connection
-      @connection ||= Faraday.new(url: "http://localhost:9000") do |faraday|
-        faraday.request :url_encoded
-        faraday.response :logger
-        faraday.use Faraday::Adapter::EMSynchrony # make http request with eventmachine and synchrony
-        faraday.use MnClient::Response::ParseJson # Parse JSON response bodies using MultiJson
-        faraday.use MnClient::Response::RaiseError
+      @connection ||= Faraday.new(url: MnClient::Configuration.api_url) do |connection|
+        connection.request :url_encoded
+        connection.response :logger
+        connection.use Faraday::Adapter::EMSynchrony # make http request with eventmachine and synchrony
+        connection.use MnClient::Response::ParseJson # Parse JSON response bodies using MultiJson
+        connection.use MnClient::Response::RaiseError
       end
     end
 
