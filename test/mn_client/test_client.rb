@@ -11,12 +11,12 @@ describe MnClient do
     it "get notes with correct format" do
       notes = @client.all_notes
       notes.must_be_instance_of Array
-      notes.last.keys.must_include :note
-      notes.last[:note].keys.must_include :id
-      notes.last[:note].keys.must_include :name
-      notes.last[:note].keys.must_include :description
-      notes.last[:note].keys.must_include :created_at
-      notes.last[:note].keys.must_include :updated_at
+      notes.last.keys.must_include "note"
+      notes.last['note'].keys.must_include 'id'
+      notes.last['note'].keys.must_include 'name'
+      notes.last['note'].keys.must_include 'description'
+      notes.last['note'].keys.must_include 'created_at'
+      notes.last['note'].keys.must_include 'updated_at'
     end
   end
 end
