@@ -1,8 +1,10 @@
-class Field
-  include Her::Model
+module MnClient
+  class Field
+    include Her::Model
 
-  belongs_to :note
-  has_many :items
+    belongs_to :note
+    has_many :items
 
-  collection_path "notes/:note_id/fields"
+    collection_path "notes/:note_id/fields"
+  end
 end

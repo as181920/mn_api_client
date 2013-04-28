@@ -1,8 +1,10 @@
-class Entry
-  include Her::Model
+module MnClient
+  class Entry
+    include Her::Model
 
-  belongs_to :note
-  has_many :items
+    belongs_to :note
+    has_many :items
 
-  collection_path "notes/:note_id/entries"
+    collection_path "notes/:note_id/entries"
+  end
 end

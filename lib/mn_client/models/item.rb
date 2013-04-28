@@ -1,6 +1,8 @@
-class Item
-  include Her::Model
+module MnClient
+  class Item
+    include Her::Model
 
-  belongs_to :field
-  belongs_to :entry
+    belongs_to :field
+    belongs_to :entry
+  end
 end
