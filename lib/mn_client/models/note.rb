@@ -6,5 +6,6 @@ module MnClient
 
     has_many :fields
     has_many :entries
+
   end
 end
