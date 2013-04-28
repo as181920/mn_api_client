@@ -1,5 +1,6 @@
 require "her"
 require 'em-http'
+require "multi_json"
 
 Her::API.setup url:  MnClient::Configuration.api_url do |connection|
   connection.use Faraday::Request::UrlEncoded
