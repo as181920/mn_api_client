@@ -59,7 +59,7 @@ describe MnClient do
       #TODO, use api to check if cannot find
     end
 
-    it "return xxx when cannot find note" do
+    it "return nil when cannot find note" do
       #TODO
     end
   end
