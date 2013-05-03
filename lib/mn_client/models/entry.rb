@@ -11,6 +11,7 @@ module MnClient
     collection_path "notes/:note_id/entries"
 
     custom_post :create_with_data
+    custom_put :update_with_data
     custom_get :find_with_data
     custom_get :all_data
   end

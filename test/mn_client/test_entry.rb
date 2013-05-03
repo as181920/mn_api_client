@@ -38,6 +38,15 @@ describe MnClient do
       entries.first.send(@field_2_name.to_sym).must_equal field_2_content
       entries.first.note_id.must_equal @note.id
       entries.first.entry_id.must_equal entry_id
+
+      # Update: update entry data
+      field_1_content_modified,field_2_content_modified = "c11","c22"
+      binding.pry
+      entry = Entry.update_with_data _note_id: @note.id, entry_id: entry_id, "data" => {@field_1_name => field_1_content_modified}
+      entry.wont_be_nil
+      entry.must_be_instance_of Entry
+      entry.send(@field_1_name.to_sym).must_equal field_1_content_modified
+      entry.send(@field_2_name.to_sym).must_equal field_2_content
     end
 
   end
