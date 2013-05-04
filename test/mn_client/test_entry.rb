@@ -41,7 +41,6 @@ describe MnClient do
 
       # Update: update entry data
       field_1_content_modified,field_2_content_modified = "c11","c22"
-      binding.pry
       entry = Entry.update_with_data _note_id: @note.id, entry_id: entry_id, "data" => {@field_1_name => field_1_content_modified}
       entry.wont_be_nil
       entry.must_be_instance_of Entry
