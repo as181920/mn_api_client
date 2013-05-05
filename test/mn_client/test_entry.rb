@@ -46,6 +46,12 @@ describe MnClient do
       entry.must_be_instance_of Entry
       entry.send(@field_1_name.to_sym).must_equal field_1_content_modified
       entry.send(@field_2_name.to_sym).must_equal field_2_content
+
+      # Delete
+      entry.destroy
+      entry.destroyed?.must_equal true
+      #TODO check size after destroyed
+      #@note.entries.size.must_equal 0
     end
 
   end
