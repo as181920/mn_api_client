@@ -23,9 +23,9 @@ describe MnClient do
       entry.send(@field_1_name.to_sym).must_equal field_1_content
       entry.send(@field_2_name.to_sym).must_equal field_2_content
 
-      # Read: get entry with data by entry_id
-      entry_id = entry.id
-      entry = Entry.find_with_data _note_id: @note.id, entry_id: entry_id
+      # Read: get entry with data by id
+      id = entry.id
+      entry = Entry.find_with_data _note_id: @note.id, id: id
       entry.wont_be_nil
       entry.must_be_instance_of Entry
       entry.send(@field_1_name.to_sym).must_equal field_1_content
@@ -37,11 +37,11 @@ describe MnClient do
       entries.first.send(@field_1_name.to_sym).must_equal field_1_content
       entries.first.send(@field_2_name.to_sym).must_equal field_2_content
       entries.first.note_id.must_equal @note.id
-      entries.first.entry_id.must_equal entry_id
+      entries.first.id.must_equal id
 
       # Update: update entry data
       field_1_content_modified,field_2_content_modified = "c11","c22"
-      entry = Entry.update_with_data _note_id: @note.id, entry_id: entry_id, "data" => {@field_1_name => field_1_content_modified}
+      entry = Entry.update_with_data _note_id: @note.id, id: id, "data" => {@field_1_name => field_1_content_modified}
       entry.wont_be_nil
       entry.must_be_instance_of Entry
       entry.send(@field_1_name.to_sym).must_equal field_1_content_modified

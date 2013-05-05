@@ -20,10 +20,10 @@ describe MnClient do
       field.must_respond_to :id
       field.name.must_equal name
 
-      field_id = field.id
+      id = field.id
 
       # Read
-      field = Field.find field_id, _note_id: @note.id
+      field = Field.find id, _note_id: @note.id
       field.wont_be_nil
       field.must_be_instance_of Field
       field.name.must_equal name
@@ -33,7 +33,7 @@ describe MnClient do
       field.name = name_modified
       field.save
       field.new?.must_equal false
-      field.id.must_equal field_id
+      field.id.must_equal id
       field.name.must_equal name_modified
 
       # Delete
