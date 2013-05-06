@@ -50,8 +50,7 @@ describe MnClient do
       # Delete
       entry.destroy
       entry.destroyed?.must_equal true
-      #TODO check size after destroyed
-      #@note.entries.size.must_equal 0
+      @note.entries.size.must_equal 0
     end
 
   end
